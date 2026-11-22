@@ -10,7 +10,7 @@ sibling of the Capital Study app.
 
 ### Android
 
-**[⬇ Download grundrisse-study.apk](https://github.com/MechanicalMindVonMisses/grundrisse-study/releases/latest/download/grundrisse-study.apk)** (about 49 MB, Android 7.0 or newer)
+**[⬇ Download grundrisse-study.apk](https://github.com/MechanicalMindVonMisses/grundrisse-study-app/releases/latest/download/grundrisse-study.apk)** (about 49 MB, Android 7.0 or newer)
 
 1. Open the link above on your Android phone and download the file.
 2. Tap the downloaded file. If Android asks, allow your browser or file manager to install unknown apps.
@@ -20,7 +20,7 @@ The APK is not from the Play Store, so Android shows its standard warning for si
 
 ### iPhone and iPad
 
-**[⬇ Download grundrisse-study.ipa](https://github.com/MechanicalMindVonMisses/grundrisse-study/releases/latest/download/grundrisse-study.ipa)** (iOS 15 or newer)
+**[⬇ Download grundrisse-study.ipa](https://github.com/MechanicalMindVonMisses/grundrisse-study-app/releases/latest/download/grundrisse-study.ipa)** (iOS 15 or newer)
 
 The app is not on the App Store. The `.ipa` is unsigned, so it is installed
 with a sideloading tool that signs it with your own Apple ID:
@@ -32,9 +32,9 @@ with a sideloading tool that signs it with your own Apple ID:
 With a free Apple ID the install lasts 7 days; AltStore refreshes it
 automatically while it is running.
 
-All releases are listed on the [Releases page](https://github.com/MechanicalMindVonMisses/grundrisse-study/releases).
+All releases are listed on the [Releases page](https://github.com/MechanicalMindVonMisses/grundrisse-study-app/releases).
 
-Companion app: [Capital Study](https://github.com/MechanicalMindVonMisses/capital-study-android-app) for *Das Kapital*.
+Companion app: [Capital Study](https://github.com/MechanicalMindVonMisses/capital-study-app) for *Das Kapital*.
 
 ## What is included
 
