@@ -1,0 +1,53 @@
+# Builds the iOS app on a macOS runner (iOS builds need Xcode, so they cannot
+# be made on Windows or Linux). The result is an unsigned .ipa for sideloading
+# with AltStore or Sideloadly, which re-sign it with the installer's Apple ID.
+name: iOS build
+
+on:
+  push:
+    tags: ['v*']
+  workflow_dispatch:
+    inputs:
+      release_tag:
+        description: 'Attach the .ipa to this existing release tag (leave empty to only upload a workflow artifact)'
+        required: false
+
+permissions:
+  contents: write
+
+jobs:
+  ios:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          flutter-version: 3.50.0
+          cache: true
+
+      - run: flutter pub get
+      - run: flutter test
+
+      - name: Build unsigned iOS app
+        run: flutter build ios --release --no-codesign
+
+      - name: Package .ipa
+        run: |
+          mkdir -p Payload
+          cp -R build/ios/iphoneos/Runner.app Payload/
+          zip -qr grundrisse-study.ipa Payload
+          ls -lh grundrisse-study.ipa
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: grundrisse-study-ipa
+          path: grundrisse-study.ipa
+
+      - name: Attach to release
+        if: github.ref_type == 'tag' || inputs.release_tag != ''
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ inputs.release_tag || github.ref_name }}
+        run: gh release upload "$TAG" grundrisse-study.ipa --clobber

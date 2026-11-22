@@ -1,6 +1,6 @@
-# Grundrisse Study — Android app
+# Grundrisse Study
 
-An offline Android course for reading Karl Marx’s *Grundrisse* (the 1857–58
+An offline Android and iOS course for reading Karl Marx’s *Grundrisse* (the 1857–58
 notebooks, *Outlines of the Critique of Political Economy*): guided lessons,
 knowledge checks, interactive models, flashcards, notes, bookmarks, a
 page-by-page reading tracker, and progress tracking. Built with Flutter, as a
@@ -8,13 +8,31 @@ sibling of the Capital Study app.
 
 ## Download
 
-**[⬇ Download grundrisse-study.apk](https://github.com/MechanicalMindVonMisses/grundrisse-study-android-app/releases/latest/download/grundrisse-study.apk)** (about 49 MB, Android 7.0 or newer)
+### Android
+
+**[⬇ Download grundrisse-study.apk](https://github.com/MechanicalMindVonMisses/grundrisse-study/releases/latest/download/grundrisse-study.apk)** (about 49 MB, Android 7.0 or newer)
 
 1. Open the link above on your Android phone and download the file.
 2. Tap the downloaded file. If Android asks, allow your browser or file manager to install unknown apps.
 3. Tap **Install**, then open **Grundrisse Study**.
 
-The APK is not from the Play Store, so Android shows its standard warning for sideloaded apps. All releases are listed on the [Releases page](https://github.com/MechanicalMindVonMisses/grundrisse-study-android-app/releases).
+The APK is not from the Play Store, so Android shows its standard warning for sideloaded apps.
+
+### iPhone and iPad
+
+**[⬇ Download grundrisse-study.ipa](https://github.com/MechanicalMindVonMisses/grundrisse-study/releases/latest/download/grundrisse-study.ipa)** (iOS 15 or newer)
+
+The app is not on the App Store. The `.ipa` is unsigned, so it is installed
+with a sideloading tool that signs it with your own Apple ID:
+
+1. Install [AltStore](https://altstore.io) or [Sideloadly](https://sideloadly.io) on a Mac or PC and connect your iPhone.
+2. Download the `.ipa` above and open it with AltStore (*My Apps → +*) or drag it into Sideloadly.
+3. Sign in with your Apple ID when asked. On the phone, trust the developer under *Settings → General → VPN & Device Management*.
+
+With a free Apple ID the install lasts 7 days; AltStore refreshes it
+automatically while it is running.
+
+All releases are listed on the [Releases page](https://github.com/MechanicalMindVonMisses/grundrisse-study/releases).
 
 Companion app: [Capital Study](https://github.com/MechanicalMindVonMisses/capital-study-android-app) for *Das Kapital*.
 
@@ -48,18 +66,26 @@ browser. The translation is not redistributed in the app.
 
 ## Building from source
 
-Requires the Flutter SDK and the Android SDK.
+Requires the Flutter SDK, plus the Android SDK for Android or Xcode (on a Mac) for iOS.
 
 ```bash
 python tool/build_course.py   # regenerate assets/data/course.json after editing tool/content_*.py
 flutter pub get
 flutter test
-flutter build apk --release
+flutter build apk --release                  # Android
+flutter build ios --release --no-codesign    # iOS (macOS only)
 ```
 
 The APK lands in `build/app/outputs/flutter-apk/app-release.apk`, signed with
 the debug key (fine for sideloading; set up a release keystore before
 publishing to Play).
+
+iOS builds need Xcode, so they run on GitHub Actions
+(`.github/workflows/ios.yml`): pushing a `v*` tag builds the unsigned
+`grundrisse-study.ipa` on a macOS runner and attaches it to that release. The
+workflow can also be started by hand from the Actions tab. To ship through the
+App Store or TestFlight, open `ios/Runner.xcworkspace` in Xcode and set a
+signing team. `python tool/make_ios_icon.py` regenerates the iOS app icons.
 
 ## Layout
 
@@ -70,3 +96,4 @@ publishing to Play).
 - `lib/store.dart` — on-device progress, bookmarks, notes, read passages
 - `lib/theme.dart` — palette, type, shared widgets
 - `lib/screens/` — home, curriculum, lesson, library, labs, glossary, notebook
+- `android/`, `ios/` — platform projects
