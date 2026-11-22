@@ -4,8 +4,8 @@
 name: iOS build
 
 on:
-  push:
-    tags: ['v*']
+  release:
+    types: [published]
   workflow_dispatch:
     inputs:
       release_tag:
@@ -42,12 +42,12 @@ jobs:
 
       - uses: actions/upload-artifact@v4
         with:
-          name: grundrisse-study-ipa
+          name: grundrisse-study.ipa
           path: grundrisse-study.ipa
 
       - name: Attach to release
-        if: github.ref_type == 'tag' || inputs.release_tag != ''
+        if: github.event_name == 'release' || inputs.release_tag != ''
         env:
           GH_TOKEN: ${{ github.token }}
-          TAG: ${{ inputs.release_tag || github.ref_name }}
+          TAG: ${{ github.event.release.tag_name || inputs.release_tag }}
         run: gh release upload "$TAG" grundrisse-study.ipa --clobber

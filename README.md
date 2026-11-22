@@ -81,7 +81,7 @@ the debug key (fine for sideloading; set up a release keystore before
 publishing to Play).
 
 iOS builds need Xcode, so they run on GitHub Actions
-(`.github/workflows/ios.yml`): pushing a `v*` tag builds the unsigned
+(`.github/workflows/ios.yml`): publishing a GitHub release builds the unsigned
 `grundrisse-study.ipa` on a macOS runner and attaches it to that release. The
 workflow can also be started by hand from the Actions tab. To ship through the
 App Store or TestFlight, open `ios/Runner.xcworkspace` in Xcode and set a
